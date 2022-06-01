@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {Routes, Route, Link, BrowserRouter} from "react-router-dom";
+import {Routes, Route, Link, BrowserRouter, useNavigate} from "react-router-dom";
 import {useState} from "react";
 
 const movies = [
@@ -40,15 +40,22 @@ function ListMovies({movies}) {
     </div>
 }
 
-function NewMovie() {
+function NewMovie({onAddMovie}) {
     const [title, setTitle] = useState("Initial");
     const [year, setYear] = useState("Initial");
     const [plot,setPlot] = useState("Initial");
+
+    const navigate = useNavigate();
+
+
+
+
     function handleSubmit(e) {
         e.preventDefault();
-        movies.push({title, year, plot});
+        onAddMovie({title, year, plot});
+        navigate("/");
     }
-    return <form>
+    return <form onSubmit={handleSubmit}>
         <h1>New movie</h1>;
         <div>
             <label>Title: <input value={title} onChange={e => setTitle(e.target.value)}/></label>
@@ -69,7 +76,7 @@ function Application() {
         return <BrowserRouter>
             <Routes>
                 <Route path="/" element={<FrontPage />} />
-                <Route path="/movie/new" element={<NewMovie/>} />
+                <Route path="/movie/new" element={<NewMovie onAddMovie={m => movies.push(m)}/>} />
                 <Route path="/movies" element={<ListMovies movies={movies} />} />
             </Routes>
         </BrowserRouter>
