@@ -4,18 +4,6 @@ import {Routes, Route, Link, BrowserRouter, useNavigate} from "react-router-dom"
 import {useState} from "react";
 import {useEffect} from "react";
 
-const MOVIES = [
-    {
-        title: "Cool ass movie",
-        plot: "Cool shit happens",
-        year: 1498
-    },
-    {
-        title: "Bad ass movie",
-        plot: "Bad shit happens",
-        year: 1948
-    }
-];
 
 function FrontPage() {
     return <div>
